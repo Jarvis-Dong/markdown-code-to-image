@@ -3,6 +3,17 @@ import test from 'node:test'
 
 import { buildHtml, validateInput } from '../src/renderer.js'
 
+test('empty API input renders one bounded default card', () => {
+  const config = validateInput({})
+
+  assert.equal(config.documents.length, 1)
+  assert.match(config.documents[0].markdown, /Markdown to image/)
+  assert.equal(config.theme, 'paper')
+  assert.equal(config.width, 1080)
+  assert.equal(config.fontSize, 22)
+  assert.equal(config.watermark, 'Made with Cardify')
+})
+
 test('renders untrusted Markdown without HTML or remote images', () => {
   const config = validateInput({
     documents: [{ markdown: '<script>alert(1)</script>\n\n![x](https://example.com/a.png)\n\n```js\nconst x = 1\n```' }],

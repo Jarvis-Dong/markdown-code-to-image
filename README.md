@@ -57,7 +57,9 @@ curl -sS -X POST \
 
 The response is an array with one record per generated PNG. Download the
 signed `imageUrl` from each record before the run storage expires. Never put an
-Apify token in a workflow exported to a public repository.
+Apify token in a workflow exported to a public repository. The generated API
+client's empty `{}` input is also safe: it renders exactly one bounded default
+card so a first call produces a visible result instead of failing validation.
 
 ## Automation recipes
 

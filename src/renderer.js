@@ -26,6 +26,10 @@ const THEMES = {
 const MAX_DOCUMENTS = 20
 const MAX_MARKDOWN_CHARS = 12000
 const MAX_RENDER_HEIGHT = 16000
+const DEFAULT_DOCUMENTS = [{
+  title: 'A useful answer',
+  markdown: '# Markdown to image\n\nTurn **notes**, tables, and highlighted code into a shareable PNG.\n\n```js\nconst result = await automate();\n```',
+}]
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
@@ -49,10 +53,11 @@ const markdown = new MarkdownIt({
 markdown.renderer.rules.image = (tokens, index) => `<span class="image-alt">[image: ${escapeHtml(tokens[index].content || 'untitled')}]</span>`
 
 export function validateInput(input) {
-  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+  input ??= {}
+  if (typeof input !== 'object' || Array.isArray(input)) {
     throw new TypeError('Actor input must be an object')
   }
-  const documents = input.documents
+  const documents = input.documents ?? DEFAULT_DOCUMENTS
   if (!Array.isArray(documents) || documents.length < 1 || documents.length > MAX_DOCUMENTS) {
     throw new RangeError(`documents must contain 1-${MAX_DOCUMENTS} items`)
   }
