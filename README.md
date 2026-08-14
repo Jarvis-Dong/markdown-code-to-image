@@ -5,6 +5,10 @@ images through Apify. Use it from the Console, API, n8n, Make, Zapier, or a
 schedule. It is a rendering API, not a web scraper: no login, proxy, source
 website, or external API key is required.
 
+- [Run the Actor on Apify](https://apify.com/ai-coding-radar/markdown-code-to-image)
+- [Try the public Markdown-to-PNG example](https://apify.com/ai-coding-radar/markdown-code-to-image/examples/render-markdown-and-code-to-a-png)
+- [Connect it to an AI agent with Apify MCP](https://apify.com/ai-coding-radar/markdown-code-to-image/api/mcp)
+
 ## What it is for
 
 - Markdown to image automation for newsletters and social posts.
@@ -38,6 +42,22 @@ Available themes are `paper`, `midnight`, `terminal`, and `clean`. A run accepts
 1-20 documents. Each Markdown value is capped at 12,000 characters and each
 rendered image at 16,000 pixels high so oversized input fails explicitly.
 
+## Automation API
+
+Set `APIFY_TOKEN` in your secret manager, then call the synchronous Dataset
+endpoint from a shell, n8n HTTP Request node, or Make HTTP module:
+
+```sh
+curl -sS -X POST \
+  "https://api.apify.com/v2/acts/ai-coding-radar~markdown-code-to-image/run-sync-get-dataset-items?token=$APIFY_TOKEN" \
+  -H 'content-type: application/json' \
+  -d '{"documents":[{"title":"Release note","markdown":"# Shipped\n\nThe useful change is live."}],"theme":"paper","width":1080,"fontSize":22,"watermark":""}'
+```
+
+The response is an array with one record per generated PNG. Download the
+signed `imageUrl` from each record before the run storage expires. Never put an
+Apify token in a workflow exported to a public repository.
+
 ## Security and limits
 
 Raw HTML is disabled. Markdown images are replaced with alt text, and the
@@ -57,9 +77,9 @@ npm run smoke
 The smoke command writes `/tmp/markdown-code-to-image-smoke.png` using local
 Chrome. The Apify image uses the official Playwright Chrome base image.
 
-## Pricing note
+## Pricing
 
-The intended launch price is `$0.01` per generated image plus a small run-start
-event. Platform usage is included. Test runs, free users, and generated image
-counts are not creator revenue; only a finalized payout that actually settles
-is treated as income.
+The launch price is `$0.01` per generated image plus `$0.00005` per Actor start.
+Platform usage is included. Test runs, free users, and generated image counts
+are not creator revenue; only a finalized payout that actually settles is
+treated as income.
