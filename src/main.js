@@ -22,7 +22,7 @@ try {
       format: 'png',
       markdownChars: document.markdown.length,
       storageKey: key,
-      imageUrl: `https://api.apify.com/v2/key-value-stores/${store.id}/records/${encodeURIComponent(key)}`,
+      imageUrl: store.getPublicUrl(key),
       generatedAt: new Date().toISOString(),
     })
   }
