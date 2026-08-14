@@ -94,7 +94,7 @@ Chrome. The Apify image uses the official Playwright Chrome base image.
 
 ## Pricing
 
-The launch price is `$0.01` per generated image plus `$0.00005` per Actor start.
+The launch price is `$0.005` per generated image plus `$0.00005` per Actor start.
 Platform usage is included. Test runs, free users, and generated image counts
 are not creator revenue; only a finalized payout that actually settles is
 treated as income.
