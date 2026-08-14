@@ -1,0 +1,38 @@
+{
+  "$schema": "https://apify.com/schemas/v1/dataset.ide.json",
+  "actorSpecification": 1,
+  "title": "Generated image dataset",
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["theme", "width", "height", "format", "markdownChars", "storageKey", "imageUrl", "generatedAt"],
+    "properties": {
+      "title": {"type": ["string", "null"]},
+      "theme": {"type": "string", "enum": ["paper", "midnight", "terminal", "clean"]},
+      "width": {"type": "integer"},
+      "height": {"type": "integer"},
+      "format": {"type": "string", "enum": ["png"]},
+      "markdownChars": {"type": "integer"},
+      "storageKey": {"type": "string"},
+      "imageUrl": {"type": "string", "format": "uri"},
+      "generatedAt": {"type": "string", "format": "date-time"}
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Generated images",
+      "transformation": {"fields": ["title", "theme", "width", "height", "imageUrl", "generatedAt"]},
+      "display": {
+        "component": "table",
+        "properties": {
+          "title": {"label": "Title", "format": "text"},
+          "theme": {"label": "Theme", "format": "text"},
+          "width": {"label": "Width", "format": "number"},
+          "height": {"label": "Height", "format": "number"},
+          "imageUrl": {"label": "Download PNG", "format": "link"},
+          "generatedAt": {"label": "Generated", "format": "date"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "markdown-code-to-image",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Apify Actor that renders Markdown and code into shareable PNG images.",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node --test",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "apify": "^3.7.0",
+    "highlight.js": "^11.11.1",
+    "markdown-it": "^14.1.0",
+    "playwright": "1.61.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

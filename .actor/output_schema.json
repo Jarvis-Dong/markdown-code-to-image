@@ -1,0 +1,12 @@
+{
+  "$schema": "https://apify.com/schemas/v1/output.ide.json",
+  "actorOutputSchemaVersion": 1,
+  "title": "Generated image records",
+  "properties": {
+    "results": {
+      "type": "string",
+      "title": "PNG image records",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    }
+  }
+}

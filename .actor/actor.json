@@ -1,0 +1,18 @@
+{
+  "$schema": "https://apify.com/schemas/v1/actor.ide.json",
+  "actorSpecification": 1,
+  "name": "markdown-code-to-image",
+  "title": "Markdown & Code to Image API",
+  "description": "Render Markdown, highlighted code, tables, quotes, and notes into polished PNG images for social posts and automation.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "readme": "../README.md",
+  "dockerContextDir": "..",
+  "minMemoryMbytes": 256,
+  "defaultMemoryMbytes": 512,
+  "maxMemoryMbytes": 1024,
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {"dataset": "./dataset_schema.json"},
+  "dockerfile": "../Dockerfile"
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://apify.com/schemas/v1/input.ide.json",
+  "title": "Markdown image request",
+  "description": "Render up to 20 Markdown documents as PNG images without loading remote assets.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "documents": {
+      "title": "Documents",
+      "type": "array",
+      "description": "Each item needs Markdown and may include a short title.",
+      "editor": "json",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "Optional heading shown above the rendered Markdown.",
+            "maxLength": 160
+          },
+          "markdown": {
+            "title": "Markdown",
+            "type": "string",
+            "description": "Markdown content to render; raw HTML and remote images are disabled.",
+            "minLength": 1,
+            "maxLength": 12000
+          }
+        },
+        "required": ["markdown"]
+      },
+      "default": [{
+        "title": "A useful answer",
+        "markdown": "# Markdown to image\n\nTurn **notes**, tables, and highlighted code into a shareable PNG.\n\n```js\nconst result = await automate();\n```"
+      }]
+    },
+    "theme": {
+      "title": "Theme",
+      "type": "string",
+      "description": "Visual style shared by every image in this run.",
+      "enum": ["paper", "midnight", "terminal", "clean"],
+      "default": "paper",
+      "editor": "select"
+    },
+    "width": {
+      "title": "Canvas width",
+      "type": "integer",
+      "description": "Outer PNG width in pixels.",
+      "default": 1080,
+      "minimum": 640,
+      "maximum": 1600,
+      "editor": "number"
+    },
+    "fontSize": {
+      "title": "Body font size",
+      "type": "integer",
+      "description": "Base body text size in pixels.",
+      "default": 22,
+      "minimum": 16,
+      "maximum": 30,
+      "editor": "number"
+    },
+    "watermark": {
+      "title": "Footer label",
+      "type": "string",
+      "description": "Use an empty string to remove the footer.",
+      "default": "Made with Cardify",
+      "maxLength": 80,
+      "editor": "textfield"
+    }
+  },
+  "required": ["documents", "theme", "width", "fontSize", "watermark"]
+}
