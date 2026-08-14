@@ -1,0 +1,138 @@
+{
+  "name": "Markdown & Code to Image API - batch PNG",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# Markdown & Code to Image API\n\nThis workflow sends a batch of Markdown documents to the public Apify Actor API and returns one dataset record per PNG. Set `APIFY_TOKEN` in the n8n runtime before running it. See `examples/README.md` for webhook, Schedule Trigger, and downstream image handling notes.",
+        "height": 300,
+        "width": 440,
+        "color": 5
+      },
+      "id": "f1a4120e-4c6c-4ecf-bc86-dc88b47e27b0",
+      "name": "Setup notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        -260
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "db16c8c7-4be1-4b0d-85a6-0f29a2b94b38",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    documents: [\n      {\n        title: 'Release note',\n        markdown: '# Shipped\\n\\nThe batch renderer turns **Markdown** and code into a PNG.\\n\\n```js\\nconst ready = true;\\n```'\n      },\n      {\n        title: 'OG image: API update',\n        markdown: '## Markdown to image API\\n\\nUse the returned `imageUrl` as the generated PNG in your owned content workflow.'\n      }\n    ],\n    theme: 'paper',\n    width: 1080,\n    fontSize: 22,\n    watermark: ''\n  }\n}];"
+      },
+      "id": "b4ffacbb-b13e-4542-9465-cdaed34a3e6c",
+      "name": "Build batch input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -300,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/ai-coding-radar~markdown-code-to-image/run-sync-get-dataset-items?clean=1",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Bearer ' + $env.APIFY_TOKEN }}"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "b4ed27f8-d699-4dd8-bc81-9e083ee5f4e4",
+      "name": "Render Markdown and code",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -40,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first()?.json;\nconst records = Array.isArray(response)\n  ? response\n  : Array.isArray(response?.items)\n    ? response.items\n    : response && typeof response === 'object'\n      ? [response]\n      : [];\nreturn records\n  .filter(record => record && typeof record === 'object' && typeof record.imageUrl === 'string')\n  .map(record => ({ json: record }));"
+      },
+      "id": "4a58dad4-fb2f-49ce-bd0b-0e27bf1f38ba",
+      "name": "Return PNG records",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        40
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Run manually": {
+      "main": [
+        [
+          {
+            "node": "Build batch input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build batch input": {
+      "main": [
+        [
+          {
+            "node": "Render Markdown and code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Render Markdown and code": {
+      "main": [
+        [
+          {
+            "node": "Return PNG records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}

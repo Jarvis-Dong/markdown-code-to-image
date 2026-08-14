@@ -58,6 +58,21 @@ The response is an array with one record per generated PNG. Download the
 signed `imageUrl` from each record before the run storage expires. Never put an
 Apify token in a workflow exported to a public repository.
 
+## Automation recipes
+
+Copy the [n8n batch Markdown-to-image API workflow](examples/n8n-markdown-code-to-image.json)
+or the [Make batch recipe](examples/make-markdown-code-to-image.json). Both
+send the same [validated input body](examples/batch-input.json) and return one
+dataset record per PNG. The examples cover a `markdown to image API`, a
+`code screenshot API`, and an `OG image` card without fetching remote assets.
+
+The n8n workflow reads the caller's `APIFY_TOKEN` environment variable. The
+Make recipe keeps bearer authorization in a private Make connection or secret
+field. Neither example includes a token, cookie, private webhook URL, or a
+signed `imageUrl`; map each runtime `imageUrl` to the next automation step.
+See [`examples/README.md`](examples/README.md) for setup, batching limits, and
+downstream file handling.
+
 ## Security and limits
 
 Raw HTML is disabled. Markdown images are replaced with alt text, and the

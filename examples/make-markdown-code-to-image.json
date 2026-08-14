@@ -1,0 +1,68 @@
+{
+  "name": "Markdown & Code to Image API - Make HTTP module",
+  "description": "Copy the request settings into Make's HTTP > Make a request module. Keep the bearer value in a Make connection or secret field; it is intentionally not stored in this example.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.apify.com/v2/acts/ai-coding-radar~markdown-code-to-image/run-sync-get-dataset-items?clean=1",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "authorization": {
+      "type": "bearer",
+      "value": "Configure this in a private Make connection or secret field"
+    },
+    "bodyType": "raw",
+    "contentType": "application/json",
+    "body": {
+      "documents": [
+        {
+          "title": "Release note",
+          "markdown": "# Shipped\n\nThe batch renderer turns **Markdown** and code into a PNG.\n\n```js\nconst ready = true;\n```"
+        },
+        {
+          "title": "OG image: API update",
+          "markdown": "## Markdown to image API\n\nUse the returned `imageUrl` as the generated PNG in your owned content workflow."
+        }
+      ],
+      "theme": "paper",
+      "width": 1080,
+      "fontSize": 22,
+      "watermark": ""
+    }
+  },
+  "response": {
+    "type": "array",
+    "itemFields": [
+      "title",
+      "theme",
+      "width",
+      "height",
+      "format",
+      "markdownChars",
+      "storageKey",
+      "imageUrl",
+      "generatedAt"
+    ]
+  },
+  "nextModules": [
+    {
+      "module": "JSON > Parse JSON",
+      "input": "HTTP response body"
+    },
+    {
+      "module": "Iterator",
+      "input": "Parsed response array"
+    },
+    {
+      "module": "HTTP > Get a file",
+      "url": "Map the current iterator item's imageUrl"
+    }
+  ]
+}

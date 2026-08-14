@@ -1,0 +1,16 @@
+{
+  "documents": [
+    {
+      "title": "Release note",
+      "markdown": "# Shipped\n\nThe batch renderer turns **Markdown** and code into a PNG.\n\n```js\nconst ready = true;\n```"
+    },
+    {
+      "title": "OG image: API update",
+      "markdown": "## Markdown to image API\n\nUse the returned `imageUrl` as the generated PNG in your owned content workflow."
+    }
+  ],
+  "theme": "paper",
+  "width": 1080,
+  "fontSize": 22,
+  "watermark": ""
+}
