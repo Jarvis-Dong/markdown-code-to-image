@@ -57,3 +57,9 @@ test('public examples contain no credentials or signed output URLs', async () =>
   assert.doesNotMatch(text, /apify_api_[A-Za-z0-9_-]{20,}/i)
   assert.doesNotMatch(text, /(?:[?&](?:token|signature)=|disableRedirect=true)/i)
 })
+
+test('README links both public use-case landing pages', async () => {
+  const readme = await fs.readFile(path.join(process.cwd(), 'README.md'), 'utf8')
+  assert.match(readme, /examples\/render-markdown-and-code-to-a-png/)
+  assert.match(readme, /examples\/chatgpt-markdown-answer-to-png/)
+})
