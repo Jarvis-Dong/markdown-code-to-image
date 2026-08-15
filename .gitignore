@@ -1,4 +1,5 @@
 node_modules/
 storage/
 *.png
+!docs/markdown-code-to-image-preview.png
 .DS_Store

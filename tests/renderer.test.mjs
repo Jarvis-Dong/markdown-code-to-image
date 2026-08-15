@@ -1,7 +1,17 @@
 import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
 import test from 'node:test'
 
 import { buildHtml, validateInput } from '../src/renderer.js'
+
+test('published preview is a real 1080px PNG', async () => {
+  const image = await fs.readFile(new URL('../docs/markdown-code-to-image-preview.png', import.meta.url))
+
+  assert.deepEqual([...image.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10])
+  assert.equal(image.readUInt32BE(16), 1080)
+  assert.ok(image.readUInt32BE(20) >= 600)
+  assert.ok(image.length >= 20_000)
+})
 
 test('empty API input renders one bounded default card', () => {
   const config = validateInput({})

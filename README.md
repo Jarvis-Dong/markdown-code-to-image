@@ -5,6 +5,8 @@ images through Apify. Use it from the Console, API, n8n, Make, Zapier, or a
 schedule. It is a rendering API, not a web scraper: no login, proxy, source
 website, or external API key is required.
 
+![Example Markdown and code rendered as a PNG](https://raw.githubusercontent.com/Jarvis-Dong/markdown-code-to-image/main/docs/markdown-code-to-image-preview.png)
+
 - [Run the Actor on Apify](https://apify.com/ai-coding-radar/markdown-code-to-image)
 - [Try the public Markdown-to-PNG example](https://apify.com/ai-coding-radar/markdown-code-to-image/examples/render-markdown-and-code-to-a-png)
 - [Convert a ChatGPT Markdown answer to PNG](https://apify.com/ai-coding-radar/markdown-code-to-image/examples/chatgpt-markdown-answer-to-png)
