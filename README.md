@@ -11,6 +11,7 @@ website, or external API key is required.
 - [Try the public Markdown-to-PNG example](https://apify.com/ai-coding-radar/markdown-code-to-image/examples/render-markdown-and-code-to-a-png)
 - [Convert a ChatGPT Markdown answer to PNG](https://apify.com/ai-coding-radar/markdown-code-to-image/examples/chatgpt-markdown-answer-to-png)
 - [Connect it to an AI agent with Apify MCP](https://apify.com/ai-coding-radar/markdown-code-to-image/api/mcp)
+- [Browse the complete automation API catalog](https://ai-coding-radar.github.io/#toolbox-title)
 
 ## What it is for
 
